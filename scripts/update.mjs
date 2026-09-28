@@ -44,7 +44,7 @@ if (changedPart === -1 || nextVersion[changedPart] < currentVersion[changedPart]
 const staging = await mkdtemp(join(tmpdir(), "sheetjs-update-"));
 
 try {
-  for (const directory of ["patches", "scripts", "test"]) {
+  for (const directory of ["patches", "scripts", "tests"]) {
     await cp(join(root, directory), join(staging, directory), { recursive: true });
   }
 
@@ -66,7 +66,7 @@ try {
   await writeFile(nextManifestPath, JSON.stringify(nextManifest, null, 2) + "\n");
   await build(staging);
 
-  const testDirectory = join(staging, "test");
+  const testDirectory = join(staging, "tests");
   const filenames = await readdir(testDirectory);
   const testPaths = filenames
     .filter((filename) => filename.endsWith(".test.mjs"))

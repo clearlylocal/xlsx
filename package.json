@@ -91,7 +91,7 @@
 	"scripts": {
 		"build": "node scripts/build.mjs",
 		"build:check": "node scripts/build.mjs --check",
-		"test": "node --test test/*.test.mjs",
+		"test": "node --test tests/*.test.mjs",
 		"update": "node scripts/update.mjs"
 	},
 	"dependencies": {},

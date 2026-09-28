@@ -1,6 +1,8 @@
+diff --git a/xlsx.mjs b/xlsx.mjs
+index 3e61a59..108c6b0 100644
 --- a/xlsx.mjs
 +++ b/xlsx.mjs
-@@ -3706,9 +3706,8 @@
+@@ -3920,9 +3920,8 @@ var unescapexml/*:StringConv*/ = /*#__PURE__*/(function() {
  	/* 22.4.2.4 bstr (Basic String) */
  	var encregex = /&(?:quot|apos|gt|lt|amp|#x?([\da-fA-F]+));/ig, coderegex = /_x([\da-fA-F]{4})_/ig;
  	function raw_unescapexml(text/*:string*/)/*:string*/ {

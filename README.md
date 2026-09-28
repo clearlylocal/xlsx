@@ -10,17 +10,15 @@ The repository keeps the upstream files, local fixes, and generated output separ
 - `upstream/manifest.json`: release version, source URLs, file hashes, and patch order.
 - `patches/`: local fixes applied during the build.
 - `scripts/`: build and update commands.
-- `test/`: regression tests.
+- `tests/`: regression tests named to match their patches.
 - Root `xlsx.mjs`, `types/index.d.ts`, `LICENSE`, and `CHANGELOG.md`: generated files committed for consumers.
 
 The build copies the upstream files into a temporary directory, applies the patches, and writes the generated output.
 
-| Patch | Behavior |
-| --- | --- |
-| [preserve-incomplete-cdata.patch](patches/preserve-incomplete-cdata.patch) | Keeps incomplete CDATA delimiters as text when no complete wrapper is present. |
-| [decode-string-values-once.patch](patches/decode-string-values-once.patch) | Decodes direct string values once and preserves full Unicode characters from numeric XML references, including emoji. Literal CDATA wrappers remain cell text for applications to remove if required. |
-
-To change this behavior, edit the relevant patch and rebuild. Do not edit the generated module directly.
+| Patch                                                                              | Behavior                                                                                                                                                                                              |
+| ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [001-preserve-incomplete-cdata.patch](patches/001-preserve-incomplete-cdata.patch) | Keeps incomplete CDATA delimiters as text when no complete wrapper is present.                                                                                                                        |
+| [002-decode-string-values-once.patch](patches/002-decode-string-values-once.patch) | Decodes direct string values once and preserves full Unicode characters from numeric XML references, including emoji. Literal CDATA wrappers remain cell text for applications to remove if required. |
 
 ## Build and test
 
@@ -33,6 +31,18 @@ npm test
 ```
 
 The build runs offline and checks the upstream hashes before applying patches in a temporary directory. It stops if an input has changed or a patch cannot be applied. `build:check` verifies that the committed output matches the build without replacing any files. CI runs this check and the regression tests on pushes and pull requests.
+
+## Contributing
+
+Add a regression test for each fix. Use the existing tests as examples.
+
+- Create small workbooks in the test and keep inputs beside their expected values. Edit the archive XML when the workbook writer cannot produce the required input.
+- Cover the reported failure, related boundary cases, and an ordinary value that must stay unchanged.
+- For text parsing, cover direct, shared, and inline strings where relevant. Keep literal cell text distinct from actual XML CDATA and entity references.
+- Assert exact parsed values, including whitespace and Unicode characters. Name tests after the behavior they check.
+- Match patch and test names, such as `003-description.patch` and `003-description.test.mjs`. Use the next three-digit prefix. Do not renumber files or reuse removed numbers.
+- Generate patches with `git diff` against the upstream file with earlier patches applied. Keep `upstream/` unchanged and list patches in prefix order in the manifest. Rebuild instead of editing generated files.
+- Run `npm run build`, `npm run build:check`, and `npm test` before submitting. Keep regression tests when upstream fixes an issue and its patch is removed.
 
 ## Update upstream
 
