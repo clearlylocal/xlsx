@@ -3923,13 +3923,14 @@ var unescapexml/*:StringConv*/ = /*#__PURE__*/(function() {
 	/* 22.4.2.4 bstr (Basic String) */
 	var encregex = /&(?:quot|apos|gt|lt|amp|#x?([\da-fA-F]+));/ig, coderegex = /_x([\da-fA-F]{4})_/ig;
 	function raw_unescapexml(text/*:string*/)/*:string*/ {
-		var s = text + '', i = s.indexOf("<![CDATA["), j = i == -1 ? -1 : s.indexOf("]]>", i+9);
-		if(i == -1 || j == -1) return s.replace(encregex, function($$, $1) {
+		var s = text + '', i = s.indexOf("<![CDATA[");
+		if(i == -1) return s.replace(encregex, function($$, $1) {
 			if(encodings[$$]) return encodings[$$];
 			var code = parseInt($1, $$.toLowerCase().indexOf("x") > -1 ? 16 : 10);
 			if(!Number.isInteger(code) || code < 0 || code > 0x10FFFF) return $$;
 			return String.fromCodePoint(code);
 		}).replace(coderegex,function(m,c) {return String.fromCharCode(parseInt(c,16));});
+		var j = s.indexOf("]]>");
 		return raw_unescapexml(s.slice(0, i)) + s.slice(i+9,j) + raw_unescapexml(s.slice(j+3));
 	}
 	return function unescapexml(text/*:string*/, xlsx/*:boolean*/) {

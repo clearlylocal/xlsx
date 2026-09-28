@@ -19,7 +19,7 @@
     }
   },
   "patches": [
-    "001-preserve-incomplete-cdata.patch",
-    "002-decode-string-values-once.patch"
+    "001-decode-string-values-once.patch",
+    "002-preserve-unicode-code-points.patch"
   ]
 }

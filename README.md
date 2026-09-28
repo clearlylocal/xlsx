@@ -15,10 +15,12 @@ The repository keeps the upstream files, local fixes, and generated output separ
 
 The build copies the upstream files into a temporary directory, applies the patches, and writes the generated output.
 
-| Patch                                                                              | Behavior                                                                                                                                                                                              |
-| ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [001-preserve-incomplete-cdata.patch](patches/001-preserve-incomplete-cdata.patch) | Keeps incomplete CDATA delimiters as text when no complete wrapper is present.                                                                                                                        |
-| [002-decode-string-values-once.patch](patches/002-decode-string-values-once.patch) | Decodes direct string values once and preserves full Unicode characters from numeric XML references, including emoji. Literal CDATA wrappers remain cell text for applications to remove if required. |
+| Patch | Behavior |
+| --- | --- |
+| [001-decode-string-values-once.patch](patches/001-decode-string-values-once.patch) | Decodes direct string values once. Literal CDATA wrappers, including incomplete delimiters, remain cell text. |
+| [002-preserve-unicode-code-points.patch](patches/002-preserve-unicode-code-points.patch) | Preserves full Unicode characters from numeric XML references, including emoji. |
+
+The single-decode fix replaces the earlier incomplete-CDATA workaround. Its regression cases are included in the single-decode tests. Applications can remove complete literal CDATA wrappers after parsing if required.
 
 ## Build and test
 
