@@ -15,7 +15,12 @@ The repository keeps the upstream files, local fixes, and generated output separ
 
 The build copies the upstream files into a temporary directory, applies the patches, and writes the generated output.
 
-The current patch preserves incomplete CDATA delimiters. To change this behavior, edit the patch and rebuild rather than editing the generated module directly.
+| Patch | Behavior |
+| --- | --- |
+| [preserve-incomplete-cdata.patch](patches/preserve-incomplete-cdata.patch) | Keeps incomplete CDATA delimiters as text when no complete wrapper is present. |
+| [decode-string-values-once.patch](patches/decode-string-values-once.patch) | Decodes direct string values once and preserves full Unicode characters from numeric XML references, including emoji. Literal CDATA wrappers remain cell text for applications to remove if required. |
+
+To change this behavior, edit the relevant patch and rebuild. Do not edit the generated module directly.
 
 ## Build and test
 

@@ -35,39 +35,39 @@ const cases = [
     expected: "Before & <![CDATA[unclosed <b>text</b>",
   },
   {
-    name: "keeps complete wrapper handling",
+    name: "preserves complete literal wrappers",
     input: "<![CDATA[<b>text</b>]]>",
-    expected: "<b>text</b>",
+    expected: "<![CDATA[<b>text</b>]]>",
   },
   {
-    name: "keeps embedded wrapper spacing",
+    name: "preserves embedded literal wrappers and spacing",
     input: "Before <![CDATA[text]]> after",
-    expected: "Before text after",
+    expected: "Before <![CDATA[text]]> after",
   },
   {
-    name: "treats an opening delimiter inside a complete wrapper as literal text",
+    name: "preserves nested opening delimiters in literal text",
     input: "<![CDATA[ something <![CDATA[another]]>",
-    expected: " something <![CDATA[another",
+    expected: "<![CDATA[ something <![CDATA[another]]>",
   },
   {
-    name: "keeps adjacent wrapper handling",
+    name: "preserves adjacent literal wrappers",
     input: "<![CDATA[first]]><![CDATA[second]]>",
-    expected: "firstsecond",
+    expected: "<![CDATA[first]]><![CDATA[second]]>",
   },
   {
-    name: "keeps empty wrapper handling",
+    name: "preserves empty literal wrappers",
     input: "Before <![CDATA[]]> after",
-    expected: "Before  after",
+    expected: "Before <![CDATA[]]> after",
   },
   {
-    name: "ignores closing delimiters before the opening delimiter",
+    name: "preserves literal closing delimiters before opening delimiters",
     input: "]]> before <![CDATA[text]]>",
-    expected: "]]> before text",
+    expected: "]]> before <![CDATA[text]]>",
   },
   {
-    name: "preserves an unclosed wrapper after a complete wrapper",
+    name: "preserves an unclosed literal wrapper after a complete wrapper",
     input: "<![CDATA[first]]> <![CDATA[unfinished",
-    expected: "first <![CDATA[unfinished",
+    expected: "<![CDATA[first]]> <![CDATA[unfinished",
   },
 ];
 
