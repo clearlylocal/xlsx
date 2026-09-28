@@ -1,0 +1,24 @@
+{
+  "version": "0.20.0",
+  "files": {
+    "xlsx.mjs": {
+      "url": "https://cdn.sheetjs.com/xlsx-0.20.0/package/xlsx.mjs",
+      "sha256": "5171b0a510268db6e338dd3d9c0e8ada6b7db7bf61c77d044ccc30198023c642"
+    },
+    "types/index.d.ts": {
+      "url": "https://cdn.sheetjs.com/xlsx-0.20.0/package/types/index.d.ts",
+      "sha256": "39127b26d8c57f4077a1ce8bcab07be44bb5fb2bf95a8037efd8d25bf19be988"
+    },
+    "LICENSE": {
+      "url": "https://cdn.sheetjs.com/xlsx-0.20.0/package/LICENSE",
+      "sha256": "4d2a38ac35cda06a555c84074a819d413339cd3691b822cae50f8f322fe01f64"
+    },
+    "CHANGELOG.md": {
+      "url": "https://cdn.sheetjs.com/xlsx-0.20.0/package/CHANGELOG.md",
+      "sha256": "96de5fbdccfe8c523a18710ca730675370b87b7d16698b2a68f2985e850cb759"
+    }
+  },
+  "patches": [
+    "preserve-incomplete-cdata.patch"
+  ]
+}
